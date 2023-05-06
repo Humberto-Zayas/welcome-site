@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const UpdateHeroTitle = () => {
   const [title, setTitle] = useState('');
-  const [website, setWebsite] = useState('');
+  const [website, setWebsite] = useState('website1');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -31,12 +31,12 @@ const UpdateHeroTitle = () => {
     <div>
       <h1>Update Hero Title</h1>
       <form onSubmit={handleSubmit}>
-        <input
+        {/* <input
           type="text"
           placeholder="Website"
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
-        />
+        /> */}
         <input
           type="text"
           placeholder="New Hero Title"
