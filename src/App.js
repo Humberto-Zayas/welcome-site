@@ -7,6 +7,11 @@ import UpdateHeroTitle from './components/UpdateHeroTitle';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    setLoggedIn(false);
+  };
+
   const ProtectedRoute = ({ children }) => {
     return loggedIn ? children : <Navigate to="/login" />;
   };
@@ -19,9 +24,15 @@ function App() {
             <li>
               <Link to="/hero-title">Hero Title</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            {!loggedIn ? (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            ) : (
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            )}
             <li>
               <Link to="/update-hero-title">Update Hero Title</Link>
             </li>
@@ -41,9 +52,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-       </Routes>
+        </Routes>
       </Router>
-
     </div>
   );
 }

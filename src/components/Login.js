@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Login = ({ setLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      if (isAuthenticated === 'true') {
+        setLoggedIn(true);
+      }
+    };
+    checkLocalStorage();
+  }, [setLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +28,7 @@ const Login = ({ setLoggedIn }) => {
       });
       const data = await response.json();
       if (data.isAuthenticated) {
+        localStorage.setItem('isAuthenticated', true);
         setLoggedIn(true);
       } else {
         setError('Incorrect username or password');
